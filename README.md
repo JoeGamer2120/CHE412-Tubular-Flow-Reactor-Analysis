@@ -12,9 +12,11 @@ This repo may be later changed to CHE412 overall,
 
 ## Arrhenius Equation
 
-k_o = 1.05\*10^3 m^3/(mol\*s)
-E_A = 39.9 kJ/mol
-T = 295.49 K
+$k_{0}$ = 1.05\*10^3 m^3/(mol\*s)
+
+$E_{A}$ = 39.9 kJ/mol
+
+$T$ = 295.49 K
 
 ## Initial Concentration
 
