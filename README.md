@@ -20,15 +20,4 @@ $T$ = 295.49 K
 
 ## Initial Concentration
 
-Use initial concentration of NaOH and NaOH at some point in the reaction
-Using
-
-$$\frac{C_{A,0} - C_{A}}{\nu_{A}} = \frac{C_{B,0} - C_{B}}{\nu_{B}}$$
-
-and
-
-$$ C_{X} = \frac{K - K_\infty }{K_{0} - K_{\infty}} * C_{X,0}$$
-
-where $C_{X}$ and $C_{X,0}$ are concentration of species in question
-
-set up system of equations to solve for initial Concentration of Ethyl Acetate.
+Assume $C_{EtAct,0}$ to be 0.1M for the time being.
