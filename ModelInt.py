@@ -89,5 +89,18 @@ def lamfunc(t, k, Cao, Cbo, tau):
     return X(t, k, Cao, Cbo) * RTD
 
 
-def int_turb(t, k, Cao, Cbo, Vr, Vdot):
+def int_turb(k, Cao, Cbo, Vr, Vdot):
     return quad(turbfunc, 0, np.inf, args=(k, Cao, Cbo, Vr, Vdot))
+
+
+def int_lam(k, Cao, Cbo, tau):
+    return quad(lamfunc, tau / 2, np.inf, args=(k, Cao, Cbo, tau))
+
+
+I, err = int_turb(0.09283, 0.08, 0.1, 3.0624, 0.06309)
+print(I)
+print(err)
+
+# I, err = int_lam(0.09283, 0.08, 0.1, 194.2)
+# print(I)
+# print(err)
