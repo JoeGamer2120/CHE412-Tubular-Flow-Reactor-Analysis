@@ -1,7 +1,43 @@
 import numpy as np
 from scipy.integrate import quad
 
-# def main():
+
+def main():
+    """
+    Define Variables
+
+    It is extremely important that appropriate units are used such that the
+    units will work out, otherwise results will not be correct. I recommend
+    using LITERS and SECONDS to ensure units work out.
+    """
+    k = 0.09283  # [L/mol s]
+    Cao = 0.08  # [M]
+    Cbo = 0.1  # [M]
+    Vr = 3.06243  # [L]         Volume of Reactor
+    Vdot = 0.06309  # [L/s]   1 gal per min
+    # Vdot = 0.0283905  # [L/s]   0.45 Gal per min
+    tau = 194.2  # [s]          Laminar Residence Time
+
+    # Pick Flow Regiem, comment out the other
+    # Turb = Turbulent
+    # Lam = Laminar
+    # For Transition, use Turbulent with Transition Variables
+
+    # I, err = int_turb(k, Cao, Cbo, Vr, Vdot)
+    I, err = int_lam(k, Cao, Cbo, tau)
+    print("X_bar =", I)
+    print("Error: ", err)
+
+    return
+
+
+# I, err = int_turb(0.09283, 0.08, 0.1, 3.0624, 0.06309)
+# print(I)
+# print(err)
+#
+# I, err = int_lam(0.09283, 0.08, 0.1, 194.2)
+# print(I)
+# print(err)
 
 
 def Ca(t, k, Cao, Cbo):
@@ -97,10 +133,5 @@ def int_lam(k, Cao, Cbo, tau):
     return quad(lamfunc, tau / 2, np.inf, args=(k, Cao, Cbo, tau))
 
 
-I, err = int_turb(0.09283, 0.08, 0.1, 3.0624, 0.06309)
-print(I)
-print(err)
-
-# I, err = int_lam(0.09283, 0.08, 0.1, 194.2)
-# print(I)
-# print(err)
+if __name__ == "__main__":
+    main()
