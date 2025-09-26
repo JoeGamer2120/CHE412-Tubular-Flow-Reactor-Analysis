@@ -23,8 +23,8 @@ def main():
     # Lam = Laminar
     # For Transition, use Turbulent with Transition Variables
 
-    # I, err = int_turb(k, Cao, Cbo, Vr, Vdot)
-    I, err = int_lam(k, Cao, Cbo, tau)
+    I, err = int_turb(k, Cao, Cbo, Vr, Vdot)
+    # I, err = int_lam(k, Cao, Cbo, tau         # WORKING
     print("X_bar =", I)
     print("Error: ", err)
 
@@ -44,62 +44,7 @@ def Ca(t, k, Cao, Cbo):
     """
     This is the function for the concentration of NaOH.
     """
-    return (
-        (
-            (
-                Cao**3 * k
-                - 3 * Cao**2 * Cbo * k
-                + 3 * Cao * Cbo**2 * k
-                - Cbo**3 * k
-                + 2
-                * np.sqrt(6)
-                * np.sqrt(
-                    t
-                    * (
-                        Cao**3 * k
-                        - 3 * Cao**2 * Cbo * k
-                        + 3 * Cao * Cbo**2 * k
-                        - Cbo**3 * k
-                        + 6 * t
-                    )
-                )
-                + 12 * t
-            )
-            * k**2
-        )
-        ** (1 / 3)
-        / (2 * k)
-        + (Cao - Cbo) ** 2
-        * k
-        / (
-            2
-            * (
-                (
-                    Cao**3 * k
-                    - 3 * Cao**2 * Cbo * k
-                    + 3 * Cao * Cbo**2 * k
-                    - Cbo**3 * k
-                    + 2
-                    * np.sqrt(6)
-                    * np.sqrt(
-                        t
-                        * (
-                            Cao**3 * k
-                            - 3 * Cao**2 * Cbo * k
-                            + 3 * Cao * Cbo**2 * k
-                            - Cbo**3 * k
-                            + 6 * t
-                        )
-                    )
-                    + 12 * t
-                )
-                * k**2
-            )
-            ** (1 / 3)
-        )
-        + Cao / 2
-        - Cbo / 2
-    )
+    return (Cao - Cbo)*np.exp(Cao*k*t - Cbo*k*t)/(1 + np.exp(Cao*k*t - Cbo*k*t))
 
 
 def X(t, k, Cao, Cbo):
