@@ -23,11 +23,10 @@ def main():
     # Lam = Laminar
     # For Transition, use Turbulent with Transition Variables
 
-    I, err = int_turb(k, Cao, Cbo, Vr, Vdot)
-    # I, err = int_lam(k, Cao, Cbo, tau         # WORKING
+    I = turbfunc(k, Cao, Cbo, Vr, Vdot)
+    # I, err = int_lam(k, Cao, Cbo, tau)         # WORKING
     print("X_bar =", I)
-    print("Error: ", err)
-
+    # print("Error: ", err)
     return
 
 
@@ -51,13 +50,13 @@ def X(t, k, Cao, Cbo):
     return 1 - Ca(t, k, Cao, Cbo) / Cao
 
 
-def turbfunc(t, k, Cao, Cbo, Vr, Vdot):
+def turbfunc(k, Cao, Cbo, Vr, Vdot):
     """
     Integrand for turbulent flow.
     This function will also be used for transition flow
     """
-    RTD = Vr / Vdot
-    return X(t, k, Cao, Cbo) * RTD
+    tau = Vr / Vdot
+    return X(tau, k, Cao, Cbo)
 
 
 def lamfunc(t, k, Cao, Cbo, tau):
@@ -68,10 +67,6 @@ def lamfunc(t, k, Cao, Cbo, tau):
     """
     RTD = tau**2 / (2 * tau**3)
     return X(t, k, Cao, Cbo) * RTD
-
-
-def int_turb(k, Cao, Cbo, Vr, Vdot):
-    return quad(turbfunc, 0, np.inf, args=(k, Cao, Cbo, Vr, Vdot))
 
 
 def int_lam(k, Cao, Cbo, tau):
