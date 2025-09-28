@@ -14,8 +14,8 @@ def main():
     Cao = 0.08  # [M]
     Cbo = 0.1  # [M]
     Vr = 3.06243  # [L]         Volume of Reactor
-    Vdot = 0.06309  # [L/s]   1 gal per min
-    # Vdot = 0.0283905  # [L/s]   0.45 Gal per min
+    Vdot_turb = 0.06309  # [L/s]   1 gal per min
+    Vdot_tran = 0.0283905  # [L/s]   0.45 Gal per min
     tau = 194.2  # [s]          Laminar Residence Time
 
     # Pick Flow Regiem, comment out the other
@@ -23,27 +23,29 @@ def main():
     # Lam = Laminar
     # For Transition, use Turbulent with Transition Variables
 
-    I = turbfunc(k, Cao, Cbo, Vr, Vdot)
-    # I, err = int_lam(k, Cao, Cbo, tau)         # WORKING
-    print("X_bar =", I)
-    # print("Error: ", err)
+    turb_xbar = X(Vr / Vdot_turb, k, Cao, Cbo)  # Turbulent
+    tran_xbar = X(Vr / Vdot_tran, k, Cao, Cbo)  # Transition
+    I, err = int_lam(k, Cao, Cbo, tau)  # Laminar
+
+    print("Turbulent Xbar =", turb_xbar)
+    print()
+    print("Transition Xbar:", tran_xbar)
+    print()
+    print("Laminar Xbar:", I)
+    print("Error: ", err)
     return
-
-
-# I, err = int_turb(0.09283, 0.08, 0.1, 3.0624, 0.06309)
-# print(I)
-# print(err)
-#
-# I, err = int_lam(0.09283, 0.08, 0.1, 194.2)
-# print(I)
-# print(err)
 
 
 def Ca(t, k, Cao, Cbo):
     """
     This is the function for the concentration of NaOH.
     """
-    return (Cao - Cbo)*np.exp(Cao*k*t - Cbo*k*t)/(1 + np.exp(Cao*k*t - Cbo*k*t))
+    # Obtained w/ Maple dsolve
+    # con_A = (Cao - Cbo) * Cao / (-np.exp(-(Cao - Cbo) * k * t) * Cbo + Cao)
+
+    # Riley
+    con_A = (Cao - Cbo) * Cao / (-np.exp(-k * (Cao - Cbo) * t) * Cbo + Cao)
+    return con_A
 
 
 def X(t, k, Cao, Cbo):
