@@ -4,12 +4,16 @@ from scipy.integrate import quad
 
 def main():
     """
-    Define Variables
+    This function call functions to perform the appropriate operations
+    to calculate value for the average conversion based on theoretical
+    models found in Elements of Chemical Reaction Engineering Reaction
+    by H. Scott Fogler.
 
     It is extremely important that appropriate units are used such that the
     units will work out, otherwise results will not be correct. I recommend
     using LITERS and SECONDS to ensure units work out.
     """
+    # Variables from Experiment
     k = 0.09283  # [L/mol s]
     Cao = 0.08  # [M]
     Cbo = 0.1  # [M]
@@ -18,11 +22,7 @@ def main():
     Vdot_tran = 0.0283905  # [L/s]   0.45 Gal per min
     tau = 194.2  # [s]          Laminar Residence Time
 
-    # Pick Flow Regiem, comment out the other
-    # Turb = Turbulent
-    # Lam = Laminar
-    # For Transition, use Turbulent with Transition Variables
-
+    # Call functions
     turb_xbar = X(Vr / Vdot_turb, k, Cao, Cbo)  # Turbulent
     tran_xbar = X(Vr / Vdot_tran, k, Cao, Cbo)  # Transition
     I, err = int_lam(k, Cao, Cbo, tau)  # Laminar
@@ -43,7 +43,8 @@ def main():
 
 def Ca(t, k, Cao, Cbo):
     """
-    This is the function for the concentration of NaOH.
+    This is the function for the concentration of NaOH. See IntegrationAttempt3.mw
+    for details on how this equation was obtained.
     """
     # Obtained w/ Maple dsolve
     # con_A = (Cao - Cbo) * Cao / (-np.exp(-(Cao - Cbo) * k * t) * Cbo + Cao)
@@ -54,6 +55,10 @@ def Ca(t, k, Cao, Cbo):
 
 
 def X(t, k, Cao, Cbo):
+    """
+    Performs the calculation for conversion.
+    Conversion X = 1 - (Ca/Cao)
+    """
     ans = 1 - Ca(t, k, Cao, Cbo) / Cao
     return ans
 
@@ -79,6 +84,10 @@ def lamfunc(t, k, Cao, Cbo, tau):
 
 
 def int_lam(k, Cao, Cbo, tau):
+    """
+    Calls on the scipy.integrate quad module to integrate for the 
+    average conversion in laminar flow.
+    """
     return quad(lamfunc, tau / 2, np.inf, args=(k, Cao, Cbo, tau))
 
 
