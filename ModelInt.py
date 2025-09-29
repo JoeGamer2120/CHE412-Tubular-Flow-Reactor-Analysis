@@ -49,7 +49,8 @@ def Ca(t, k, Cao, Cbo):
 
 
 def X(t, k, Cao, Cbo):
-    return 1 - Ca(t, k, Cao, Cbo) / Cao
+    ans = 1 - Ca(t, k, Cao, Cbo) / Cao
+    return ans
 
 
 def turbfunc(k, Cao, Cbo, Vr, Vdot):
@@ -67,8 +68,9 @@ def lamfunc(t, k, Cao, Cbo, tau):
     This is only applicable when t >= tau/2, as when t is less than tau/2, the
     RTD is 0 making the integrand 0.
     """
-    RTD = tau**2 / (2 * tau**3)
-    return X(t, k, Cao, Cbo) * RTD
+    RTD = tau**2 / (2 * t**3)
+    lam_func = X(t, k, Cao, Cbo) * RTD
+    return lam_func
 
 
 def int_lam(k, Cao, Cbo, tau):
