@@ -26,10 +26,15 @@ def main():
     turb_xbar = X(Vr / Vdot_turb, k, Cao, Cbo)  # Turbulent
     tran_xbar = X(Vr / Vdot_tran, k, Cao, Cbo)  # Transition
     I, err = int_lam(k, Cao, Cbo, tau)  # Laminar
+    I_tran, err_tran = int_lam(k, Cao, Cbo, Vr / Vdot_tran)
+    avgtran_xbar = np.average([I_tran, tran_xbar])
 
     print("Turbulent Xbar =", turb_xbar)
     print()
-    print("Transition Xbar:", tran_xbar)
+    print("Transition (Turbulent Method)", tran_xbar)
+    print("Transition (Laminar Method)", I_tran)
+    print("Transition (Average):", avgtran_xbar)
+    print("Transition Integration Est. Error:", err_tran)
     print()
     print("Laminar Xbar:", I)
     print("Error: ", err)
