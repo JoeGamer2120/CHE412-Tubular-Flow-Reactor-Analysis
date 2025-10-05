@@ -15,8 +15,8 @@ def main():
     """
     # Variables from Experiment
     k = 0.09283  # [L/mol s]
-    Cao = 0.08  # [M]
-    Cbo = 0.1  # [M]
+    Cao = 0.08 / 2  # [M]
+    Cbo = 0.1 / 2  # [M]
     Vr = 3.06243  # [L]         Volume of Reactor
     Vdot_turb = 0.06309  # [L/s]   1 gal per min
     Vdot_tran = 0.0283905  # [L/s]   0.45 Gal per min
