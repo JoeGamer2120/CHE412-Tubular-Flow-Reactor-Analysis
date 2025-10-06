@@ -3,21 +3,36 @@
   numbering: "1", 
   number-align: top + right,
 )
+
+#set text(size: 12pt)
+
+#show figure.where(kind: table): set figure.caption(position: top)
+
 #set par(
   leading: 1.5em,
-  spacing: 2em,
+  spacing: 1em,
+  first-line-indent: (
+    amount: 0em,
+    all: true
+  )
+)
+
+#align(center, text(17pt)[
+  *Tubular Flow Reactor Project Summary Report*
+])
+
+#align(center, text(12pt)[
+  Author: Josiah Schlabach
+])
+
+#set par(
+  leading: 1.5em,
+  spacing: 1.75em,
   first-line-indent: (
     amount: 1.5em,
     all: true
   )
 )
-#set text(size: 12pt)
-
-#show figure.where(kind: table): set figure.caption(position: top)
-
-#align(center, text(17pt)[
-  *Tubular Flow Reactor Project Summary Report*
-])
 
 The goal of the experiment was to determine the effect of flow rate on the
 conversion of the reaction between sodium hydroxide and ethyl acetate. For this
@@ -54,7 +69,9 @@ model used. For turbulent flow, an ideal plug flow reactor and RTD model were
 used. For laminar flow, a laminar flow reactor and RTD model were used. Due to
 the unpredictability of transition flow, no model exist specifically for
 transition. So, using the laminar flow and plug flow reactor models, a range of
-conversions was determined. A complete summary of data collected is presented
+conversions was determined. Because RTD models have bound of integration
+between 0 and infinity, python was used to determine the theoretical conversion @theorycalc.
+A complete summary of data collected is presented
 in @results.
 
 #figure(
@@ -161,7 +178,7 @@ concentration of reactant A.
 The rate constant is calculated using the Arrhenius equation, which relates the
 frequency factor, activation energy, universal gas constant, and reaction
 temperature. This determines the specific rate constant for the reaction
-undergone in this unit. Both $K_0$ and $E_A$ were sourced at room temperature.
+undergone in this unit. Both $K_0$ and $E_A$ were sourced at room temperature @Chelablit.
 
 $ k = k_0 dot e^(-E_A/(R dot T)) $
 $ k = 1.05 dot 10^3 "m"^3/("mol" dot "s") 
@@ -247,7 +264,7 @@ $
 All conductivity readings were measured using the Model 54eC conductivity HART
 analyzer. The sensor used in the analyzer is a contacting conductivity
 sensor For contacting conductivity sensors, the analyzer is accurate
-within ±0.5% of the reading as reflected in the calculations below 
+within ±0.5% of the reading as reflected in the calculations below @Conductivity @Hart:
 
 $
 Delta_("X,Tran") = sqrt(
@@ -271,8 +288,8 @@ $
 
 $ Delta_("X,Tran") =
 sqrt(
-  (-1/ (7455.158 cond - 6642.424 cond) dot delta_k)^2 + \
-  (-1 / (7455.158 cond - 6642.424 cond) - (6915.138 cond - 6642.424 cond) / (7455.158 cond - kinf)^2 dot delta_k_inf)^2 + \
+  (-1/ (k0 - kinf cond) dot delta_k)^2 + \
+  (-1 / (k0 - kinf) - (kt - kinf) / (k0 - kinf)^2 dot delta_k_inf)^2 + \
   ((kt - kinf) / (k0 - kinf)^2 dot delta_k_inf)^2
 )
 $
@@ -280,12 +297,19 @@ $
 $
 Delta_("X,Tran") =
 sqrt(
-  (-0.0012304149 dot (0.005 *kt))^2 + \
-  (0.000817547 dot (0.005 * kinf))^2 + \
-  (0.0004128674 dot (0.005 * k0))^2
+  (-0.000195973 dot (0.005 *kt))^2 + \
+  (0.000099615 dot (0.005 * kinf))^2 + \
+  (0.000096357 dot (0.005 * k0))^2
 )
 $
 
 $
 Delta_("X,Tran") = 0.006607
 $
+
+#pagebreak()
+
+#bibliography(
+  "works.yml",
+  title: "References"
+)

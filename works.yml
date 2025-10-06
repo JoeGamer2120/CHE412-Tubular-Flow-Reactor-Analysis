@@ -1,0 +1,36 @@
+Hart:
+  type: Article
+  title: Conductivity/Resistivity HART® Analyzer/Controller
+  author: Emerson Process Management
+  organization: Rosemount Analytical
+  date: 2006
+
+Conductivity:
+  type: Article
+  title: ENDURANCE® General Purpose Conductivity Sensors
+  date: 2006
+  organization: Rosemount Analytical
+  author: Emerson Process Management
+
+Chelablit:
+  type: Article
+  title: An Integrated Chemical Reaction Engineering Lab Experiment
+  date: 2006
+  author:
+    - Mendes, Adélio
+    - Madeira, Luis
+    - Magãlhaes, Fernão
+    - Sousa, José
+  parent:
+    type: periodical
+    title: Chemical Engineering Education
+    publisher: ASEE
+
+theorycalc:
+  type: repository
+  title: CHE412-Tubular-Flow-Reactor-Analysis
+  author: Schlabach, J
+  date: 2025
+  publisher: Github
+  url: https://github.com/JoeGamer2120/CHE412-Tubular-Flow-Reactor-Analysis/blob/main/ModelInt.py
+
