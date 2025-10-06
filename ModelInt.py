@@ -15,7 +15,7 @@ def main():
     """
     # Variables from Experiment
     k = 0.09283  # [L/mol s]
-    Cao = 0.08 / 2  # [M]
+    Cao = 0.076854 / 2  # [M]
     Cbo = 0.1 / 2  # [M]
     Vr = 3.06243  # [L]         Volume of Reactor
     Vdot_turb = 0.06309  # [L/s]   1 gal per min
@@ -85,7 +85,7 @@ def lamfunc(t, k, Cao, Cbo, tau):
 
 def int_lam(k, Cao, Cbo, tau):
     """
-    Calls on the scipy.integrate quad module to integrate for the 
+    Calls on the scipy.integrate quad module to integrate for the
     average conversion in laminar flow.
     """
     return quad(lamfunc, tau / 2, np.inf, args=(k, Cao, Cbo, tau))
