@@ -1,5 +1,6 @@
 import numpy as np
 from scipy.integrate import quad
+import matplotlib.pyplot as plt
 
 
 def main():
@@ -38,6 +39,8 @@ def main():
     print()
     print("Laminar Xbar:", I)
     print("Error: ", err)
+
+    plot()
     return
 
 
@@ -89,6 +92,26 @@ def int_lam(k, Cao, Cbo, tau):
     average conversion in laminar flow.
     """
     return quad(lamfunc, tau / 2, np.inf, args=(k, Cao, Cbo, tau))
+
+def plot():
+    exp_flowrate = np.array([0.25, 0.45, 1.00])
+    exp_conv = np.array([0.562, 0.382, 0.221])
+    exp_flowrate_error = np.array([0.00358, 0.00353, 0.0451])
+    exp_conv_error = np.array([0.00619, 0.00817, 0.00814])
+
+    fig, ax = plt.subplots()
+    ax.errorbar(
+        exp_flowrate,
+        exp_conv,
+        xerr = exp_flowrate_error,
+        yerr = exp_conv_error,
+        capsize = 4,
+        fmt = 'o'
+    )
+
+    # Use plt.plot for Turb and Lam models
+
+    plt.show()
 
 
 if __name__ == "__main__":
